@@ -1,0 +1,231 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/workspaces/devcontainer-dev"
+      ],
+      "description": "Enhanced filesystem operations with search and indexing",
+      "enabled": true,
+      "capabilities": [
+        "read_file",
+        "write_file",
+        "list_directory",
+        "search_files",
+        "file_tree"
+      ]
+    },
+
+    "git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git"
+      ],
+      "description": "Advanced git operations and repository management",
+      "enabled": true,
+      "capabilities": [
+        "git_status",
+        "git_diff",
+        "git_log",
+        "git_blame",
+        "git_search"
+      ]
+    },
+
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "/workspaces/devcontainer-dev/data/dev.db"
+      ],
+      "description": "SQLite database query and management capabilities",
+      "enabled": false,
+      "capabilities": [
+        "execute_query",
+        "list_tables",
+        "describe_table",
+        "create_table"
+      ],
+      "config": {
+        "readonly": false,
+        "max_rows": 1000
+      }
+    },
+
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres"
+      ],
+      "description": "PostgreSQL database operations",
+      "enabled": false,
+      "env": {
+        "POSTGRES_HOST": "localhost",
+        "POSTGRES_PORT": "5432",
+        "POSTGRES_DB": "devdb",
+        "POSTGRES_USER": "dev",
+        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}"
+      },
+      "capabilities": [
+        "execute_query",
+        "list_schemas",
+        "list_tables",
+        "describe_table"
+      ]
+    },
+
+    "web-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "description": "Web search capabilities using Brave Search API",
+      "enabled": false,
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      },
+      "capabilities": [
+        "web_search",
+        "get_snippets"
+      ]
+    },
+
+    "python-tools": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server_python"
+      ],
+      "description": "Python-specific development tools (linting, formatting, testing)",
+      "enabled": true,
+      "capabilities": [
+        "run_pytest",
+        "run_black",
+        "run_mypy",
+        "run_ruff",
+        "python_repl"
+      ],
+      "config": {
+        "python_path": "python3",
+        "virtual_env": "/workspaces/devcontainer-dev/.venv"
+      }
+    },
+
+    "rust-tools": {
+      "command": "/usr/local/bin/mcp-server-rust",
+      "args": [],
+      "description": "Rust development tools (cargo, clippy, fmt)",
+      "enabled": true,
+      "capabilities": [
+        "cargo_build",
+        "cargo_test",
+        "cargo_clippy",
+        "cargo_fmt",
+        "cargo_doc"
+      ],
+      "config": {
+        "workspace_path": "/workspaces/devcontainer-dev",
+        "toolchain": "stable"
+      }
+    },
+
+    "go-tools": {
+      "command": "/usr/local/bin/mcp-server-go",
+      "args": [],
+      "description": "Go development tools (build, test, fmt, vet)",
+      "enabled": true,
+      "capabilities": [
+        "go_build",
+        "go_test",
+        "go_fmt",
+        "go_vet",
+        "go_mod"
+      ],
+      "config": {
+        "workspace_path": "/workspaces/devcontainer-dev",
+        "go_version": "1.21"
+      }
+    },
+
+    "docker": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-docker"
+      ],
+      "description": "Docker container and image management",
+      "enabled": false,
+      "capabilities": [
+        "list_containers",
+        "list_images",
+        "container_logs",
+        "execute_command"
+      ]
+    },
+
+    "kubernetes": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-kubernetes"
+      ],
+      "description": "Kubernetes cluster management",
+      "enabled": false,
+      "capabilities": [
+        "get_pods",
+        "get_services",
+        "get_deployments",
+        "kubectl_exec"
+      ],
+      "config": {
+        "kubeconfig": "${HOME}/.kube/config",
+        "namespace": "default"
+      }
+    },
+
+    "custom-api": {
+      "command": "/usr/local/bin/custom-mcp-server",
+      "args": [
+        "--config",
+        "/workspaces/devcontainer-dev/mcp-servers/custom-config.json"
+      ],
+      "description": "Custom MCP server for project-specific tools",
+      "enabled": false,
+      "capabilities": [
+        "custom_tool_1",
+        "custom_tool_2"
+      ],
+      "env": {
+        "API_KEY": "${CUSTOM_API_KEY}",
+        "API_URL": "https://api.example.com"
+      }
+    }
+  },
+
+  "settings": {
+    "autoStart": true,
+    "timeout": 30000,
+    "retries": 3,
+    "logLevel": "info",
+    "logFile": "/workspaces/devcontainer-dev/logs/mcp-servers.log"
+  },
+
+  "security": {
+    "allowFileSystem": true,
+    "allowNetwork": true,
+    "allowedPaths": [
+      "/workspaces/devcontainer-dev"
+    ],
+    "deniedPaths": [
+      "/workspaces/devcontainer-dev/.env",
+      "/workspaces/devcontainer-dev/.secrets"
+    ]
+  }
+}

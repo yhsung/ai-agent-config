@@ -1,0 +1,101 @@
+# Cline/Roo Code Agent Rules
+# Configuration for AI-assisted development
+
+## Language-Specific Rules
+
+### Python
+- Follow PEP 8 style guidelines
+- Use type hints for function signatures and class attributes
+- Prefer f-strings for string formatting
+- Use pathlib for file system operations instead of os.path
+- Write docstrings in Google or NumPy format
+- Use dataclasses or Pydantic models for data structures
+- Implement proper error handling with specific exception types
+- Use context managers (with statements) for resource management
+- Prefer async/await for I/O operations when applicable
+- Keep functions focused and single-purpose (max 50 lines)
+
+### Go
+- Follow official Go style guide and formatting (gofmt)
+- Use meaningful variable names (avoid single letters except in loops)
+- Implement proper error handling - always check errors
+- Use interfaces for abstraction and testability
+- Prefer composition over inheritance
+- Write table-driven tests
+- Document exported functions, types, and packages
+- Use context.Context for cancellation and timeouts
+- Keep packages focused with clear responsibilities
+- Avoid global state when possible
+
+### Rust
+- Follow Rust API guidelines and formatting (rustfmt)
+- Embrace ownership and borrowing - avoid unnecessary clones
+- Use Result and Option types instead of panicking
+- Implement proper error handling with thiserror or anyhow
+- Write comprehensive documentation comments (///)
+- Use meaningful type names and avoid excessive abbreviations
+- Prefer iterator chains over explicit loops
+- Implement traits for common operations
+- Use cargo clippy recommendations
+- Write unit tests alongside implementation code
+
+## General Coding Standards
+
+### Code Quality
+- Write self-documenting code with clear variable and function names
+- Keep functions small and focused (single responsibility)
+- Avoid deep nesting (max 3 levels)
+- Remove dead code and unused imports
+- Use meaningful commit messages (conventional commits format)
+
+### Testing
+- Write tests for new functionality
+- Maintain test coverage above 80% for critical paths
+- Use descriptive test names that explain the scenario
+- Follow Arrange-Act-Assert pattern
+- Mock external dependencies appropriately
+
+### Security
+- Never commit secrets, API keys, or credentials
+- Validate and sanitize all external inputs
+- Use parameterized queries for database operations
+- Implement proper authentication and authorization
+- Keep dependencies updated and scan for vulnerabilities
+
+### Documentation
+- Document complex algorithms and business logic
+- Keep README files up to date
+- Include usage examples in documentation
+- Document API endpoints with request/response examples
+- Maintain a CHANGELOG for significant changes
+
+## AI Agent Behavior
+
+### Code Generation
+- Prefer modifying existing code over creating new files
+- Ask for clarification when requirements are ambiguous
+- Suggest multiple approaches for complex problems
+- Consider performance implications of generated code
+- Flag potential security issues or anti-patterns
+
+### Code Review
+- Check for edge cases and error handling
+- Verify code follows language-specific conventions
+- Identify potential performance bottlenecks
+- Suggest improvements for readability and maintainability
+- Ensure tests cover the changes
+
+### Debugging
+- Analyze error messages and stack traces systematically
+- Check for common issues first (null references, off-by-one, etc.)
+- Suggest adding logging or debugging output
+- Consider race conditions in concurrent code
+- Verify assumptions with data validation
+
+## Project-Specific Preferences
+# Add your project-specific rules below:
+
+# Example:
+# - Use SQLAlchemy for database operations in Python
+# - Prefer slog for logging in Go
+# - Use tokio for async runtime in Rust

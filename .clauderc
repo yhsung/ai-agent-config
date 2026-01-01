@@ -1,0 +1,113 @@
+{
+  "version": "1.0",
+  "description": "Claude CLI configuration for AI agent development",
+
+  "model": {
+    "default": "claude-sonnet-4-5",
+    "preferences": {
+      "code-generation": "claude-sonnet-4-5",
+      "code-review": "claude-sonnet-4-5",
+      "quick-tasks": "claude-haiku-4",
+      "complex-reasoning": "claude-opus-4-5"
+    }
+  },
+
+  "behavior": {
+    "verbosity": "concise",
+    "code_style": "minimal",
+    "auto_commit": false,
+    "ask_before_major_changes": true,
+    "prefer_editing_over_creating": true,
+    "include_tests": true,
+    "security_checks": true
+  },
+
+  "tools": {
+    "enabled": [
+      "bash",
+      "read",
+      "write",
+      "edit",
+      "grep",
+      "glob"
+    ],
+    "restricted": [
+      "web_search"
+    ]
+  },
+
+  "hooks": {
+    "pre_commit": {
+      "enabled": false,
+      "commands": [
+        "cargo clippy -- -D warnings",
+        "cargo fmt --check",
+        "pytest --cov",
+        "black --check .",
+        "mypy ."
+      ]
+    },
+    "pre_push": {
+      "enabled": false,
+      "commands": [
+        "cargo test",
+        "pytest"
+      ]
+    }
+  },
+
+  "context": {
+    "include_patterns": [
+      "**/*.py",
+      "**/*.go",
+      "**/*.rs",
+      "**/*.toml",
+      "**/*.yaml",
+      "**/*.yml",
+      "**/*.json",
+      "**/*.md",
+      "**/Cargo.toml",
+      "**/go.mod",
+      "**/pyproject.toml",
+      "**/requirements.txt"
+    ],
+    "exclude_patterns": [
+      "**/target/**",
+      "**/__pycache__/**",
+      "**/*.pyc",
+      "**/node_modules/**",
+      "**/.venv/**",
+      "**/venv/**",
+      "**/.git/**",
+      "**/dist/**",
+      "**/build/**"
+    ],
+    "max_file_size_kb": 500
+  },
+
+  "prompts": {
+    "custom_prompts_dir": "./prompts",
+    "load_on_startup": [
+      "code-review.md",
+      "debugging.md",
+      "documentation.md"
+    ]
+  },
+
+  "mcp": {
+    "config_file": "./mcp-servers/config.json",
+    "auto_load": true
+  },
+
+  "rules": {
+    "rules_file": "./.clinerules",
+    "enforce": true
+  },
+
+  "output": {
+    "format": "markdown",
+    "emoji": false,
+    "color": true,
+    "show_thinking": false
+  }
+}
